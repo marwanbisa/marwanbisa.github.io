@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RSPM SMPN 4 KAYAN HILIR v2.5 — By. MARWAN</title>
+<title>RSPM SMPN 4 KAYAN HILIR v2.4 — By. MARWAN</title>
 <style>
 :root{
   --navy:#083b82;--blue:#0879d9;--cyan:#19b7e8;--green:#18a957;--orange:#f59b18;
@@ -349,17 +349,6 @@ body.v24-auth-gate > .app{display:none!important}
 body.v24-auth-gate #login24{display:flex!important}
 body.v24-authenticated{overflow:auto}
 body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-events:auto}.v24-user-chip{font-size:11px;padding:6px 9px;border-radius:99px;background:#eaf5ff;color:#075b9c;font-weight:800}.v24-note{padding:10px;border-left:4px solid #0879d9;background:var(--soft);border-radius:8px;font-size:12px}@media(max-width:900px){.v24-grid{grid-template-columns:1fr}.v24-count-grid{grid-template-columns:repeat(3,1fr)}.v24-perm-grid{grid-template-columns:1fr}}@media(max-width:650px){.v24-count-grid{grid-template-columns:repeat(2,1fr)}.v24-status-list{grid-template-columns:1fr}.v24-kpi{grid-template-columns:repeat(2,1fr)}}body.dark22 .v24-count-grid>div,body.dark22 .v24-perm-grid div,body.dark22 .v24-status-list div{background:#132235;border-color:#29415a}
-
-/* ===== v2.5 — BUKTI GAMBAR PER TAHAP ===== */
-.stage-evidence{margin-top:15px;padding:16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#f8fcff,#fff)}
-.stage-evidence-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.stage-evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stage-evidence-card{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(20,48,82,.06)}
-.stage-evidence-card img{width:100%;height:150px;object-fit:cover;display:block;background:#edf4fb}
-.stage-evidence-body{padding:11px}.stage-evidence-body b{font-size:12px}.stage-evidence-body p{font-size:10px;color:var(--muted);margin:5px 0 9px;line-height:1.4}
-.stage-upload-note{font-size:11px;color:var(--muted);margin-top:6px}.stage-empty{padding:18px;text-align:center;color:var(--muted);border:1px dashed #b9d3e9;border-radius:14px;background:#fbfdff;font-size:12px;grid-column:1/-1}
-@media(max-width:900px){.stage-evidence-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.stage-evidence-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="v24-auth-gate">
@@ -470,9 +459,9 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
       <div class="bar" style="margin-top:6px"><span id="docBar" style="width:0%"></span></div>
       <p class="muted" style="margin-top:12px">Lengkapi bukti pelaksanaan agar arsip digital PBD sekolah tertata rapi.</p>
       <div class="quick">
-        <button onclick="showPage('dokumen',findNavButton22('dokumen'))">📁<b>Dokumen</b><span>Kelola bukti</span></button>
-        <button onclick="showPage('gambar',findNavButton22('gambar'))">🖼<b>Gambar</b><span>Dokumentasi foto</span></button><button onclick="showPage('video',findNavButton22('video'))">🎬<b>Video</b><span>Dokumentasi video</span></button>
-        <button onclick="printReport()">🖨<b>Cetak</b><span>Ringkasan PBD</span></button><button onclick="showPage('template',findNavButton22('template'))">📄<b>Template</b><span>Dokumen lengkap</span></button>
+        <button onclick="showPage('dokumen',document.querySelectorAll('.nav button')[10])">📁<b>Dokumen</b><span>Kelola bukti</span></button>
+        <button onclick="showPage('gambar',document.querySelectorAll('.nav button')[10])">🖼<b>Gambar</b><span>Dokumentasi foto</span></button><button onclick="showPage('video',document.querySelectorAll('.nav button')[10])">🎬<b>Video</b><span>Dokumentasi video</span></button>
+        <button onclick="printReport()">🖨<b>Cetak</b><span>Ringkasan PBD</span></button><button onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄<b>Template</b><span>Dokumen lengkap</span></button>
       </div>
     </div>
   </div>
@@ -500,34 +489,20 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
   <div class="card" style="margin-top:18px">
     <div class="card-head">
       <div><h2>Program Prioritas Sekolah</h2><div class="muted">Sumber: Hasil pemetaan Rapor Pendidikan</div></div>
-      <button class="btn light sm" onclick="showPage('rencana',document.querySelectorAll('.nav button')[2])">Lihat rencana →</button>
+      <button class="btn light sm" onclick="showPage('rencana',document.querySelectorAll('.nav button')[3])">Lihat rencana →</button>
     </div>
     <div class="programs" id="programCards"></div>
   </div>
 </section>
 
 <!-- MEMETAKAN -->
-<section id="pemetaan" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 1 — Memetakan</h1><div class="muted">Data capaian dan penentuan prioritas berdasarkan Rapor Pendidikan 2025.</div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Indikator</th><th>Skor</th><th>Kategori</th><th>Prioritas</th><th>Akar Masalah</th><th>Aksi</th></tr></thead><tbody id="mappingTable"></tbody></table></div></div>
-<div class="stage-evidence" data-stage-evidence="pemetaan">
-  <div class="stage-evidence-head"><div><h3 style="margin:0;color:var(--navy)">📷 Bukti Gambar — Memetakan</h3><div class="stage-upload-note">Unggah foto/dokumen gambar yang terkait langsung dengan tahap Memetakan. Data tersimpan otomatis pada aplikasi di perangkat ini dan ikut dalam Backup JSON.</div></div>
-  <button class="btn primary sm" onclick="openStageEvidenceUpload('pemetaan')">⬆ Unggah Gambar</button></div>
-  <input type="file" id="stageFile_pemetaan" accept="image/*" multiple style="display:none" onchange="handleStageEvidenceFiles('pemetaan',this.files)">
-  <div class="stage-evidence-grid" id="stageEvidenceGrid_pemetaan"></div>
-</div>
-</section>
+<section id="pemetaan" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 1 — Memetakan</h1><div class="muted">Data capaian dan penentuan prioritas berdasarkan Rapor Pendidikan 2025.</div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Indikator</th><th>Skor</th><th>Kategori</th><th>Prioritas</th><th>Akar Masalah</th><th>Aksi</th></tr></thead><tbody id="mappingTable"></tbody></table></div></div></section>
 
 <!-- MERENCANAKAN -->
-<section id="rencana" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 2 — Merencanakan</h1><div class="muted">Rencana program prioritas, kegiatan benahi, indikator, waktu, dan penanggung jawab.</div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>Program</th><th>Status</th><th>Kegiatan Benahi</th><th>Indikator Keberhasilan</th><th>Waktu</th><th>PJ</th><th>Aksi</th></tr></thead><tbody id="planTable"></tbody></table></div></div>
-<div class="stage-evidence" data-stage-evidence="rencana">
-  <div class="stage-evidence-head"><div><h3 style="margin:0;color:var(--navy)">📷 Bukti Gambar — Merencanakan</h3><div class="stage-upload-note">Unggah foto/dokumen gambar yang terkait langsung dengan tahap Merencanakan. Data tersimpan otomatis pada aplikasi di perangkat ini dan ikut dalam Backup JSON.</div></div>
-  <button class="btn primary sm" onclick="openStageEvidenceUpload('rencana')">⬆ Unggah Gambar</button></div>
-  <input type="file" id="stageFile_rencana" accept="image/*" multiple style="display:none" onchange="handleStageEvidenceFiles('rencana',this.files)">
-  <div class="stage-evidence-grid" id="stageEvidenceGrid_rencana"></div>
-</div>
-</section>
+<section id="rencana" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 2 — Merencanakan</h1><div class="muted">Rencana program prioritas, kegiatan benahi, indikator, waktu, dan penanggung jawab.</div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>Program</th><th>Status</th><th>Kegiatan Benahi</th><th>Indikator Keberhasilan</th><th>Waktu</th><th>PJ</th><th>Aksi</th></tr></thead><tbody id="planTable"></tbody></table></div></div></section>
 
 <!-- MELAKSANAKAN -->
-<section id="laksana" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div>
+<section id="laksana" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div>
 <h1 class="section-title">Tahap 3 — Pelaksanaan</h1>
 <div class="muted">Seluruh program yang telah direncanakan mulai dijalankan sesuai jadwal, disertai pelatihan guru, pendampingan, dan dokumentasi kegiatan.</div>
 
@@ -584,13 +559,6 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
     </table>
   </div>
 </div>
-
-<div class="stage-evidence" data-stage-evidence="laksana">
-  <div class="stage-evidence-head"><div><h3 style="margin:0;color:var(--navy)">📷 Bukti Gambar — Melaksanakan</h3><div class="stage-upload-note">Unggah foto/dokumen gambar yang terkait langsung dengan tahap Melaksanakan. Data tersimpan otomatis pada aplikasi di perangkat ini dan ikut dalam Backup JSON.</div></div>
-  <button class="btn primary sm" onclick="openStageEvidenceUpload('laksana')">⬆ Unggah Gambar</button></div>
-  <input type="file" id="stageFile_laksana" accept="image/*" multiple style="display:none" onchange="handleStageEvidenceFiles('laksana',this.files)">
-  <div class="stage-evidence-grid" id="stageEvidenceGrid_laksana"></div>
-</div>
 </section>
 
 <!-- DATA GURU & TENAGA KEPENDIDIKAN -->
@@ -607,33 +575,19 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
 </section>
 
 <!-- MENGEVALUASI -->
-<section id="evaluasi" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 4 — Mengevaluasi</h1><div class="muted">Setiap program dievaluasi berdasarkan keterlaksanaan, kualitas pelaksanaan, keterlibatan peserta, dan pencapaian indikator keberhasilan.</div>
-<div class="toolbar" style="margin-top:15px"><button class="btn primary" onclick="openModal('eval')">＋ Tambah Evaluasi</button><button class="btn light" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Kelola Guru</button><button class="btn light" onclick="resetEvalDefaults()">↺ Kembalikan Data Awal</button></div>
+<section id="evaluasi" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 4 — Mengevaluasi</h1><div class="muted">Setiap program dievaluasi berdasarkan keterlaksanaan, kualitas pelaksanaan, keterlibatan peserta, dan pencapaian indikator keberhasilan.</div>
+<div class="toolbar" style="margin-top:15px"><button class="btn primary" onclick="openModal('eval')">＋ Tambah Evaluasi</button><button class="btn light" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Kelola Guru</button><button class="btn light" onclick="resetEvalDefaults()">↺ Kembalikan Data Awal</button></div>
 <div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Program</th><th>1. Keterlaksanaan</th><th>2. Kualitas Pelaksanaan</th><th>3. Keterlibatan Peserta</th><th>4. Pencapaian Indikator</th><th>Temuan & Tindak Lanjut</th><th>Guru/Tendik Terkait</th><th>Aksi</th></tr></thead><tbody id="evalTable"></tbody></table></div></div>
-<div class="card" style="margin-top:15px;background:linear-gradient(135deg,#eef8ff,#fff)"><b>📌 Fokus Evaluasi</b><div class="muted" style="margin-top:6px">1) Program berjalan sesuai rencana dan jadwal • 2) Pelaksanaan sesuai standar/SOP dan tepat sasaran • 3) Peserta didik, guru, dan pihak terkait aktif berpartisipasi • 4) Target dan indikator keberhasilan tercapai.</div></div>
-<div class="stage-evidence" data-stage-evidence="evaluasi">
-  <div class="stage-evidence-head"><div><h3 style="margin:0;color:var(--navy)">📷 Bukti Gambar — Mengevaluasi</h3><div class="stage-upload-note">Unggah foto/dokumen gambar yang terkait langsung dengan tahap Mengevaluasi. Data tersimpan otomatis pada aplikasi di perangkat ini dan ikut dalam Backup JSON.</div></div>
-  <button class="btn primary sm" onclick="openStageEvidenceUpload('evaluasi')">⬆ Unggah Gambar</button></div>
-  <input type="file" id="stageFile_evaluasi" accept="image/*" multiple style="display:none" onchange="handleStageEvidenceFiles('evaluasi',this.files)">
-  <div class="stage-evidence-grid" id="stageEvidenceGrid_evaluasi"></div>
-</div>
-</section>
+<div class="card" style="margin-top:15px;background:linear-gradient(135deg,#eef8ff,#fff)"><b>📌 Fokus Evaluasi</b><div class="muted" style="margin-top:6px">1) Program berjalan sesuai rencana dan jadwal • 2) Pelaksanaan sesuai standar/SOP dan tepat sasaran • 3) Peserta didik, guru, dan pihak terkait aktif berpartisipasi • 4) Target dan indikator keberhasilan tercapai.</div></div></section>
 
 <!-- MENGENDALIKAN -->
-<section id="kendali" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 5 — Mengendalikan</h1><div class="muted">Pengendalian, monitoring, pembagian tanggung jawab, dan keberlanjutan program.</div><div class="toolbar"><button class="btn primary" onclick="addControlEntry()">＋ Tambah Pengendalian</button><button class="btn light" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Kelola Guru</button><button class="btn light" onclick="resetControlDefaults()">↺ Kembalikan Data Awal</button></div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Program</th><th>Kategori Pengendalian</th><th>Pengawasan / Supervisi</th><th>Pendampingan</th><th>Fokus</th><th>Keberlanjutan</th><th>Guru/Tendik Terkait</th><th>Aksi</th></tr></thead><tbody id="controlTable"></tbody></table></div></div>
-<div class="stage-evidence" data-stage-evidence="kendali">
-  <div class="stage-evidence-head"><div><h3 style="margin:0;color:var(--navy)">📷 Bukti Gambar — Mengendalikan</h3><div class="stage-upload-note">Unggah foto/dokumen gambar yang terkait langsung dengan tahap Mengendalikan. Data tersimpan otomatis pada aplikasi di perangkat ini dan ikut dalam Backup JSON.</div></div>
-  <button class="btn primary sm" onclick="openStageEvidenceUpload('kendali')">⬆ Unggah Gambar</button></div>
-  <input type="file" id="stageFile_kendali" accept="image/*" multiple style="display:none" onchange="handleStageEvidenceFiles('kendali',this.files)">
-  <div class="stage-evidence-grid" id="stageEvidenceGrid_kendali"></div>
-</div>
-</section>
+<section id="kendali" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Tahap 5 — Mengendalikan</h1><div class="muted">Pengendalian, monitoring, pembagian tanggung jawab, dan keberlanjutan program.</div><div class="toolbar"><button class="btn primary" onclick="addControlEntry()">＋ Tambah Pengendalian</button><button class="btn light" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Kelola Guru</button><button class="btn light" onclick="resetControlDefaults()">↺ Kembalikan Data Awal</button></div><div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Program</th><th>Kategori Pengendalian</th><th>Pengawasan / Supervisi</th><th>Pendampingan</th><th>Fokus</th><th>Keberlanjutan</th><th>Guru/Tendik Terkait</th><th>Aksi</th></tr></thead><tbody id="controlTable"></tbody></table></div></div></section>
 
 <!-- TEMPLATE DOKUMEN PBD -->
 <section id="template" class="page">
   <div class="toolbar" style="margin:10px 0 0">
-    <button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button>
-    <button class="btn light sm" onclick="showPage('rencana',document.querySelectorAll('.nav button')[2])">② Kembali ke Perencanaan</button>
+    <button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button>
+    <button class="btn light sm" onclick="showPage('rencana',document.querySelectorAll('.nav button')[3])">② Kembali ke Perencanaan</button>
   </div>
   <h1 class="section-title">Template Dokumen Resmi & Administrasi PBD</h1>
   <div class="muted">Kumpulan template kerja yang disusun mengikuti alur dan komponen yang dijelaskan pada panduan resmi Rapor Pendidikan/PBD Dikdasmen. Isi dapat diedit, ditautkan ke GTK, program, kegiatan, evaluasi, dan pengendalian.</div>
@@ -653,10 +607,10 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
 </section>
 
 <!-- DOKUMEN BUKTI -->
-<section id="dokumen" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Pusat Dokumen Bukti Pelaksanaan</h1><div class="muted">Simpan, kelola, dan tandai kelengkapan 19 dokumen pendukung PBD. Setiap item terhubung ke template yang sesuai dan dapat ditautkan ke bukti pelaksanaan.</div><div class="card" style="margin-top:15px"><div class="upload"><div style="font-size:32px">☁️</div><b>Tambahkan bukti dokumen pelaksanaan</b><p class="muted">Pilih dokumen dari perangkat. Dokumen disimpan secara lokal di browser ini.</p><label for="fileInput">＋ Pilih File Dokumen</label><input id="fileInput" type="file" multiple onchange="handleFiles(this.files)"></div><div class="toolbar"><input class="search" id="docSearch" placeholder="Cari dokumen..." oninput="renderDocs()"></div><div class="doc-grid" id="docGrid"></div></div></section>
+<section id="dokumen" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Pusat Dokumen Bukti Pelaksanaan</h1><div class="muted">Simpan, kelola, dan tandai kelengkapan 19 dokumen pendukung PBD. Setiap item terhubung ke template yang sesuai dan dapat ditautkan ke bukti pelaksanaan.</div><div class="card" style="margin-top:15px"><div class="upload"><div style="font-size:32px">☁️</div><b>Tambahkan bukti dokumen pelaksanaan</b><p class="muted">Pilih dokumen dari perangkat. Dokumen disimpan secara lokal di browser ini.</p><label for="fileInput">＋ Pilih File Dokumen</label><input id="fileInput" type="file" multiple onchange="handleFiles(this.files)"></div><div class="toolbar"><input class="search" id="docSearch" placeholder="Cari dokumen..." oninput="renderDocs()"></div><div class="doc-grid" id="docGrid"></div></div></section>
 
 <!-- DOKUMEN GAMBAR -->
-<section id="gambar" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div>
+<section id="gambar" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div>
   <h1 class="section-title">Dokumen Gambar</h1>
   <div class="muted">Arsip khusus dokumentasi gambar/foto bukti pelaksanaan kegiatan sekolah. Foto dikelola terpisah dari dokumen bukti dan video.</div>
   <div class="toolbar" style="margin-top:18px">
@@ -667,7 +621,7 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
 </section>
 
 <!-- DOKUMEN VIDEO -->
-<section id="video" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div>
+<section id="video" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div>
   <h1 class="section-title">Dokumen Video</h1>
   <div class="muted">Arsip khusus dokumentasi video bukti pelaksanaan kegiatan sekolah. Video dikelola terpisah dari dokumen bukti dan gambar.</div>
   <div class="toolbar" style="margin-top:18px">
@@ -678,7 +632,7 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
 </section>
 
 <!-- LAPORAN & REKAP -->
-<section id="laporan" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',findNavButton22('gtk'))">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',findNavButton22('template'))">📄 Template Dokumen</button></div><h1 class="section-title">Laporan & Rekap</h1><div class="muted">Ringkasan kesiapan dokumentasi PBD yang siap dicetak.</div><div class="stats"><div class="stat"><div class="label">Program</div><div class="num">6</div></div><div class="stat"><div class="label">Dokumen tersedia</div><div class="num" id="repDocs">0</div></div><div class="stat"><div class="label">Dokumentasi Media</div><div class="num" id="repMedia">0</div></div><div class="stat"><div class="label">Kelengkapan</div><div class="num" id="repPct">0%</div></div></div><div class="card"><h2>Checklist Dokumen</h2><div id="reportChecklist" style="margin-top:14px"></div><button class="btn primary" style="margin-top:15px" onclick="printReport()">🖨 Cetak Rekap PBD</button></div></section>
+<section id="laporan" class="page"><div class="toolbar" style="margin:10px 0 0"><button class="btn light sm" onclick="showPage('gtk',document.querySelectorAll('.nav button')[1])">👥 Daftar Guru & Tendik</button><button class="btn primary sm" onclick="showPage('template',document.querySelectorAll('.nav button')[12])">📄 Template Dokumen</button></div><h1 class="section-title">Laporan & Rekap</h1><div class="muted">Ringkasan kesiapan dokumentasi PBD yang siap dicetak.</div><div class="stats"><div class="stat"><div class="label">Program</div><div class="num">6</div></div><div class="stat"><div class="label">Dokumen tersedia</div><div class="num" id="repDocs">0</div></div><div class="stat"><div class="label">Dokumentasi Media</div><div class="num" id="repMedia">0</div></div><div class="stat"><div class="label">Kelengkapan</div><div class="num" id="repPct">0%</div></div></div><div class="card"><h2>Checklist Dokumen</h2><div id="reportChecklist" style="margin-top:14px"></div><button class="btn primary" style="margin-top:15px" onclick="printReport()">🖨 Cetak Rekap PBD</button></div></section>
 
 <!-- PUSAT KENDALI MUTU -->
 <section id="kendalimutu" class="page">
@@ -695,9 +649,9 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
     <div class="card"><div class="card-head"><div><h2>Prioritas Perhatian</h2><div class="muted">Area yang masih membutuhkan pengisian.</div></div></div><div id="kmAlerts"></div></div>
   </div>
   <div class="module-grid">
-    <div class="module-card"><h3>📊 Rapor Pendidikan</h3><p>Kelola indikator, capaian, prioritas, dan akar masalah sebagai bahan identifikasi.</p><button class="btn primary sm" onclick="showPage('rapor',document.querySelectorAll('.nav button')[13])">Buka Modul</button></div>
-    <div class="module-card"><h3>🗓️ Kegiatan</h3><p>Catat kegiatan, peserta, hasil, bukti, dan tindak lanjut dalam satu riwayat.</p><button class="btn primary sm" onclick="showPage('kegiatan',document.querySelectorAll('.nav button')[14])">Buka Modul</button></div>
-    <div class="module-card"><h3>🔎 Supervisi</h3><p>Catat observasi pembelajaran, refleksi, rekomendasi, dan tindak lanjut guru.</p><button class="btn primary sm" onclick="showPage('supervisi',document.querySelectorAll('.nav button')[15])">Buka Modul</button></div>
+    <div class="module-card"><h3>📊 Rapor Pendidikan</h3><p>Kelola indikator, capaian, prioritas, dan akar masalah sebagai bahan identifikasi.</p><button class="btn primary sm" onclick="showPage('rapor',document.querySelectorAll('.nav button')[16])">Buka Modul</button></div>
+    <div class="module-card"><h3>🗓️ Kegiatan</h3><p>Catat kegiatan, peserta, hasil, bukti, dan tindak lanjut dalam satu riwayat.</p><button class="btn primary sm" onclick="showPage('kegiatan',document.querySelectorAll('.nav button')[16])">Buka Modul</button></div>
+    <div class="module-card"><h3>🔎 Supervisi</h3><p>Catat observasi pembelajaran, refleksi, rekomendasi, dan tindak lanjut guru.</p><button class="btn primary sm" onclick="showPage('supervisi',document.querySelectorAll('.nav button')[16])">Buka Modul</button></div>
   </div>
 </section>
 
@@ -706,7 +660,7 @@ body.v24-authenticated > .app{display:flex!important;visibility:visible;pointer-
   <h1 class="section-title">Rapor Pendidikan & Identifikasi</h1>
   <div class="muted">Ruang input internal untuk membaca data Rapor Pendidikan dan menghubungkannya dengan identifikasi, prioritas, refleksi, dan rencana benahi. Data resmi Rapor Pendidikan tetap harus bersumber dari platform resmi.</div>
   <div class="card" style="margin-top:15px;background:linear-gradient(135deg,#eef8ff,#fff)"><b>Catatan penggunaan</b><div class="muted" style="margin-top:5px">Modul ini tidak menggantikan Rapor Pendidikan. Gunakan angka/kategori yang sudah diverifikasi sekolah, lalu gunakan hasilnya sebagai bahan PBD.</div></div>
-  <div class="toolbar" style="margin-top:15px"><button class="btn primary" onclick="addRaporRow()">＋ Tambah Indikator</button><button class="btn light" onclick="seedRaporFromMapping()">↻ Sinkronkan dari Memetakan</button><button class="btn light" onclick="showPage('pemetaan',document.querySelectorAll('.nav button')[1])">Buka Tahap Memetakan</button></div>
+  <div class="toolbar" style="margin-top:15px"><button class="btn primary" onclick="addRaporRow()">＋ Tambah Indikator</button><button class="btn light" onclick="seedRaporFromMapping()">↻ Sinkronkan dari Memetakan</button><button class="btn light" onclick="showPage('pemetaan',document.querySelectorAll('.nav button')[3])">Buka Tahap Memetakan</button></div>
   <div class="card" style="margin-top:15px"><div class="table-wrap"><table class="table"><thead><tr><th>No</th><th>Indikator</th><th>Capaian/Skor</th><th>Kategori</th><th>Prioritas</th><th>Akar Masalah</th><th>Sumber Data</th><th>Aksi</th></tr></thead><tbody id="raporTable"></tbody></table></div></div>
 </section>
 
@@ -1030,8 +984,6 @@ if(!Array.isArray(state.videos)) state.videos = [];
 if(!Array.isArray(state.activities)) state.activities = [];
 if(!Array.isArray(state.evals)) state.evals = [];
 if(!Array.isArray(state.controls)) state.controls = [];
-if(!state.stageEvidence || typeof state.stageEvidence!=="object" || Array.isArray(state.stageEvidence)) state.stageEvidence={pemetaan:[],rencana:[],laksana:[],evaluasi:[],kendali:[]};
-["pemetaan","rencana","laksana","evaluasi","kendali"].forEach(k=>{if(!Array.isArray(state.stageEvidence[k]))state.stageEvidence[k]=[];});
 if(!Array.isArray(state.gtk)) state.gtk = [];
 if(!state.templates || typeof state.templates!=="object" || Array.isArray(state.templates)) state.templates = {};
 if(!Array.isArray(state.raporIndicators)) state.raporIndicators = [];
@@ -1116,7 +1068,12 @@ function save(){
   state.programs = programs.map(p=>({...p}));
   state.mapping = mapping.map(r=>[...r]);
   try{
-    localStorage.setItem("pbdSmartHub", JSON.stringify(state));
+    const demoUser=isDemoUser24();
+    if(!demoUser){
+      const persist={...state};
+      delete persist._demoSnapshot24;
+      localStorage.setItem("pbdSmartHub", JSON.stringify(persist));
+    }
   }catch(err){
     toast("Kapasitas penyimpan lokal penuh! Pertimbangkan menghapus media lama.", "error");
   }
@@ -1140,61 +1097,7 @@ function save(){
 renderBudget();
 renderGeneratedDocument();
 renderDashboardMutu();
-renderStageEvidence();
 }
-
-// ===== v2.5 STAGE IMAGE EVIDENCE =====
-function openStageEvidenceUpload(stage){
-  const el=document.getElementById("stageFile_"+stage); if(el) el.click();
-}
-function handleStageEvidenceFiles(stage, files){
-  if(!files || !files.length) return;
-  const list=Array.from(files).filter(f=>f.type.startsWith("image/"));
-  if(!list.length){toast("File harus berupa gambar.","error");return;}
-  let done=0, skipped=0;
-  list.forEach(file=>{
-    if(file.size>5*1024*1024){skipped++;done++;if(done===list.length)finishStageUpload(stage,skipped);return;}
-    const reader=new FileReader();
-    reader.onload=e=>{
-      state.stageEvidence[stage].unshift({id:"se_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),name:file.name,title:file.name.replace(/\\.[^.]+$/,""),description:"",date:new Date().toISOString(),data:e.target.result});
-      done++; if(done===list.length) finishStageUpload(stage,skipped);
-    };
-    reader.onerror=()=>{done++;skipped++;if(done===list.length)finishStageUpload(stage,skipped)};
-    reader.readAsDataURL(file);
-  });
-}
-function finishStageUpload(stage,skipped){
-  save(); renderStageEvidence();
-  const msg=skipped?`Gambar tersimpan. ${skipped} file dilewati (maks. 5 MB/file).`:`Gambar tahap berhasil diunggah dan disimpan.`;
-  toast(msg,"success");
-  const inp=document.getElementById("stageFile_"+stage);if(inp)inp.value="";
-}
-function renderStageEvidence(){
-  const labels={pemetaan:"Memetakan",rencana:"Merencanakan",laksana:"Melaksanakan",evaluasi:"Mengevaluasi",kendali:"Mengendalikan"};
-  Object.keys(labels).forEach(stage=>{
-    const grid=document.getElementById("stageEvidenceGrid_"+stage); if(!grid)return;
-    const arr=state.stageEvidence?.[stage]||[];
-    grid.innerHTML=arr.length?arr.map((x,i)=>`<div class="stage-evidence-card"><img src="${x.data}" alt="${escapeHtml(x.title||x.name||'Bukti gambar')}" onclick="openStageImage('${stage}','${x.id}')" style="cursor:zoom-in"><div class="stage-evidence-body"><b>${escapeHtml(x.title||x.name||'Bukti gambar')}</b><p>${escapeHtml(x.description||'Bukti gambar tahap '+labels[stage]+' • '+new Date(x.date||Date.now()).toLocaleDateString('id-ID'))}</p><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn light sm" onclick="editStageEvidence('${stage}','${x.id}')">✏️ Edit</button><button class="btn red sm" onclick="deleteStageEvidence('${stage}','${x.id}')">🗑 Hapus</button></div></div></div>`).join(""):'<div class="stage-empty">Belum ada bukti gambar untuk tahap ini. Klik <b>Unggah Gambar</b> untuk menambahkan.</div>';
-  });
-}
-function editStageEvidence(stage,id){
-  const x=(state.stageEvidence?.[stage]||[]).find(v=>v.id===id); if(!x)return;
-  const title=prompt("Judul bukti gambar:",x.title||""); if(title===null)return;
-  const desc=prompt("Keterangan bukti gambar:",x.description||""); if(desc===null)return;
-  x.title=title.trim()||x.name||"Bukti gambar"; x.description=desc.trim(); save(); renderStageEvidence(); toast("Keterangan bukti diperbarui.","success");
-}
-function deleteStageEvidence(stage,id){
-  const x=(state.stageEvidence?.[stage]||[]).find(v=>v.id===id); if(!x)return;
-  if(!confirm("Hapus bukti gambar ini dari aplikasi?"))return;
-  state.stageEvidence[stage]=state.stageEvidence[stage].filter(v=>v.id!==id); save(); renderStageEvidence(); toast("Bukti gambar dihapus.","info");
-}
-function openStageImage(stage,id){
-  const x=(state.stageEvidence?.[stage]||[]).find(v=>v.id===id);if(!x)return;
-  let m=document.getElementById("stageImageModal");
-  if(!m){m=document.createElement("div");m.id="stageImageModal";m.className="lightbox";m.innerHTML='<div class="lightbox-content"><div class="lightbox-img-wrap"><img id="stageImagePreview" src=""></div><div class="lightbox-body"><div><b id="stageImageTitle"></b><div id="stageImageDesc" style="font-size:11px;color:#bcd0e5;margin-top:4px"></div></div><button class="btn light sm" onclick="closeStageImage()">✕ Tutup</button></div></div>';document.body.appendChild(m);}
-  document.getElementById("stageImagePreview").src=x.data;document.getElementById("stageImageTitle").textContent=x.title||x.name||"Bukti gambar";document.getElementById("stageImageDesc").textContent=x.description||"";m.classList.add("show");
-}
-function closeStageImage(){document.getElementById("stageImageModal")?.classList.remove("show");}
 
 function toast(t, type="info"){
   let e=document.getElementById("toast");
@@ -2037,7 +1940,7 @@ function printReport(){let x=state.admin2||{},n=Object.keys(state.docs).length,p
 
 
 // ===== RSPM v2.2 ENHANCEMENTS =====
-const RSPM_VERSION="2.5";
+const RSPM_VERSION="2.4";
 if(!state.meta || typeof state.meta!=="object") state.meta={};
 state.meta.version=RSPM_VERSION;
 state.meta.updatedAt=state.meta.updatedAt||new Date().toISOString();
@@ -2138,7 +2041,13 @@ function hideLogin24(){document.getElementById('login24')?.classList.add('v24-hi
 function forcePassword24(){return !!(state.session?.mustChangePassword)}
 function guardForcedPassword24(){if(forcePassword24()){openChangePass24();toast('Silakan ganti password terlebih dahulu sebelum menggunakan aplikasi.','error');return false}return true}
 function updateUserChip24(){const e=document.getElementById('userChip24');if(e)e.textContent=state.session?(state.session.name+' • '+state.session.role):'Belum login'}
-function setAuthView24(){const logged=!!activeUser24(),body=document.body,top=document.getElementById('logoutTop24'),nav=document.getElementById('usersNav24');body.classList.toggle('v24-auth-gate',!logged);body.classList.toggle('v24-authenticated',logged);if(top)top.style.display=logged?'inline-flex':'none';if(nav)nav.style.display=(logged&&activeUser24().role==='admin')?'flex':'none'}
+function setAuthView24(){
+  const logged=!!activeUser24(),body=document.body,top=document.getElementById('logoutTop24'),nav=document.getElementById('usersNav24');
+  body.classList.toggle('v24-auth-gate',!logged);body.classList.toggle('v24-authenticated',logged);
+  if(top)top.style.display=logged?'inline-flex':'none';
+  if(nav)nav.style.display=(logged&&isAdmin24())?'flex':'none';
+  document.querySelectorAll('[data-admin-only24]').forEach(el=>el.style.display=(logged&&isAdmin24())?'':'none');
+}
 function ensureAdmin24(){
   if(!Array.isArray(state.users)) state.users=[];
   let a=state.users.find(x=>String(x?.username||'').trim().toLowerCase()==='admin');
@@ -2165,13 +2074,38 @@ function login24(){
   ensureAdmin24();
   const u=(state.users||[]).find(x=>String(x.username||'').trim().toLowerCase()===un.toLowerCase()&&String(x.password??'')===pw&&x.active!==false);
   if(!u){if(err)err.textContent='Username atau password salah. Silakan hubungi Admin untuk mendapatkan akun sementara yang aktif.';return;}
+  /* Ambil kondisi terakhir yang tersimpan SEBELUM pengguna mulai demo. */
+  if(String(u.role||'').toLowerCase()!=='admin') snapshotDemoState24();
   state.session={username:u.username,name:u.name||u.username,role:u.role||'viewer',loginAt:new Date().toISOString(),mustChangePassword:!!u.mustChangePassword};
   hideLogin24();updateUserChip24();setAuthView24();
   try{save()}catch(e){console.warn('save after login',e)}
   if(u.mustChangePassword){openChangePass24();toast('Login pertama. Anda wajib mengganti password sebelum melanjutkan.','error');}
+  else if(isDemoUser24()) toast('Mode DEMO aktif. Perubahan tambah/edit/hapus hanya sementara dan akan kembali ke data semula saat logout.','success');
   else toast('Selamat datang, '+(u.name||u.username),'success');
 }
-function logout24(){state.session=null;updateUserChip24();setAuthView24();save();showLogin24();const u=document.getElementById('loginUser24');if(u)u.value='';const pw=document.getElementById('loginPass24');if(pw)pw.value='';}
+function logout24(){
+  if(isDemoUser24()){
+    restoreDemoState24();
+    state.session=null;
+    state._demoSnapshot24=null;
+  }else{
+    state.session=null;
+    try{localStorage.setItem('pbdSmartHub',JSON.stringify(state));}catch(e){console.warn(e)}
+  }
+  updateUserChip24();setAuthView24();showLogin24();
+  const u=document.getElementById('loginUser24');if(u)u.value='';
+  const pw=document.getElementById('loginPass24');if(pw)pw.value='';
+  renderAllAfterAuth24();
+  toast('Sesi selesai. Data pengguna kembali ke kondisi awal.','info');
+}
+function renderAllAfterAuth24(){
+  try{
+    updateCounts();renderDocs();renderActivities();renderPelaksanaanVideo();renderSchedule();renderTraining();renderMentoring();
+    renderEvals();renderControl();renderGTK();renderGallery();renderReports();
+    if(document.getElementById('templateGrid'))renderTemplates();
+    renderKendaliMutu();renderRapor();renderActivitiesFull();renderSupervisions();renderBudget();renderGeneratedDocument();renderDashboardMutu();renderDb24();renderUsers24();
+  }catch(e){console.warn('render after auth',e)}
+}
 function openUser24(){if(!guard24('admin'))return;document.getElementById('userModal24').classList.remove('v24-hidden')}
 function closeUser24(){document.getElementById('userModal24').classList.add('v24-hidden')}
 function openChangePass24(){if(!guard24('read'))return;const u=activeUser24();document.getElementById('changePassUser24').textContent=u?.username||'';document.getElementById('oldPass24').value='';document.getElementById('newPass24').value='';document.getElementById('confirmPass24').value='';document.getElementById('changePassError24').textContent='';document.getElementById('changePass24').classList.remove('v24-hidden')}
@@ -2200,8 +2134,8 @@ function deleteSemester24(i){if(!guard24('write'))return;state.semesterReports.s
 function printSemester24(){if(!guard24('export'))return;const el=document.getElementById('semesterPreview24'),w=window.open('','_blank');if(!w)return toast('Pop-up diblokir browser.','error');w.document.write(`<html><head><title>Laporan Semester RSPM</title><style>body{font-family:Arial;margin:35px;color:#17324d}table{width:100%;border-collapse:collapse}td,th{border:1px solid #999;padding:8px}</style></head><body>${el.innerHTML}<script>window.print()<\/script></body></html>`);w.document.close()}
 function saveOnline24(){if(!guard24('admin'))return;state.online={enabled:document.getElementById('onlineEnabled24').checked,apiUrl:document.getElementById('onlineApi24').value.trim().replace(/\/$/,''),apiKey:document.getElementById('onlineKey24').value.trim(),pollSeconds:Math.max(5,Number(document.getElementById('onlinePoll24').value)||20),lastSync:state.online.lastSync||null};save();renderOnline24();startOnline24();toast('Konfigurasi online disimpan.','success')}
 function renderOnline24(){const o=state.online||{};const a=document.getElementById('onlineEnabled24'),u=document.getElementById('onlineApi24'),k=document.getElementById('onlineKey24'),p=document.getElementById('onlinePoll24');if(a)a.checked=!!o.enabled;if(u)u.value=o.apiUrl||'';if(k)k.value=o.apiKey||'';if(p)p.value=o.pollSeconds||20;const l=document.getElementById('syncLog24');if(l)l.textContent=o.lastSync?'Sinkronisasi terakhir: '+new Date(o.lastSync).toLocaleString('id-ID'):'Belum ada sinkronisasi.'}
-async function syncNow24(){if(!guard24('write'))return;const o=state.online;if(!o.enabled||!o.apiUrl||!o.apiKey)return toast('Aktifkan online, isi URL API dan API Key.','error');try{const payload=JSON.parse(JSON.stringify(state));delete payload.session;const res=await fetch(o.apiUrl+'/state',{method:'PUT',headers:{'Content-Type':'application/json','X-API-Key':o.apiKey},body:JSON.stringify(payload)});if(!res.ok)throw new Error('HTTP '+res.status);state.online.lastSync=new Date().toISOString();localStorage.setItem('pbdSmartHub',JSON.stringify(state));renderOnline24();toast('Data tersinkron ke server.','success')}catch(e){toast('Sinkronisasi gagal: '+e.message,'error')}}
-async function pullOnline24(){const o=state.online;if(!o.enabled||!o.apiUrl||!o.apiKey)return;try{const res=await fetch(o.apiUrl+'/state',{headers:{'X-API-Key':o.apiKey}});if(!res.ok)throw new Error('HTTP '+res.status);const remote=await res.json();if(remote&&typeof remote==='object'){const session=state.session;state={...remote,session,online:{...o,lastSync:new Date().toISOString()}};localStorage.setItem('pbdSmartHub',JSON.stringify(state));renderDb24();renderSemesterHistory24();renderSemester24();updateDashboard24();renderOnline24()}}catch(e){console.warn('RSPM online',e)}}
+async function syncNow24(){if(!guard24('write'))return;if(!isAdmin24())return toast('Sinkronisasi server hanya dapat dilakukan oleh Admin. Pengguna tetap dapat mencoba fitur sebagai demo.','info');const o=state.online;if(!o.enabled||!o.apiUrl||!o.apiKey)return toast('Aktifkan online, isi URL API dan API Key.','error');try{const payload=JSON.parse(JSON.stringify(state));delete payload.session;const res=await fetch(o.apiUrl+'/state',{method:'PUT',headers:{'Content-Type':'application/json','X-API-Key':o.apiKey},body:JSON.stringify(payload)});if(!res.ok)throw new Error('HTTP '+res.status);state.online.lastSync=new Date().toISOString();localStorage.setItem('pbdSmartHub',JSON.stringify(state));renderOnline24();toast('Data tersinkron ke server.','success')}catch(e){toast('Sinkronisasi gagal: '+e.message,'error')}}
+async function pullOnline24(){if(!isAdmin24())return;const o=state.online;if(!o.enabled||!o.apiUrl||!o.apiKey)return;try{const res=await fetch(o.apiUrl+'/state',{headers:{'X-API-Key':o.apiKey}});if(!res.ok)throw new Error('HTTP '+res.status);const remote=await res.json();if(remote&&typeof remote==='object'){const session=state.session;state={...remote,session,online:{...o,lastSync:new Date().toISOString()}};localStorage.setItem('pbdSmartHub',JSON.stringify(state));renderDb24();renderSemesterHistory24();renderSemester24();updateDashboard24();renderOnline24()}}catch(e){console.warn('RSPM online',e)}}
 function startOnline24(){clearInterval(window.rspmOnline24);if(state.online?.enabled&&state.online?.apiUrl)window.rspmOnline24=setInterval(()=>{if(activeUser24())pullOnline24()},Math.max(5,Number(state.online.pollSeconds)||20)*1000)}
 // navigation wrapper: keep v2.2 behavior and add v2.4 modules
 const showPageBase24=showPage;showPage=function(id,btn){if(forcePassword24()&&!['users24'].includes(id)){openChangePass24();toast('Ganti password terlebih dahulu.','error');return}if(['database24','dashboard24','semester24','online24','users24'].includes(id)&&!activeUser24()){showLogin24();return}showPageBase24(id,btn);if(id==='database24')renderDb24();if(id==='dashboard24')updateDashboard24();if(id==='semester24'){renderSemesterHistory24();renderSemester24()}if(id==='online24')renderOnline24();if(id==='users24')renderUsers24();}
@@ -2284,14 +2218,19 @@ body.v24-authenticated #login24{display:none!important;visibility:hidden!importa
 </style>
 <script>
 (function(){
+let demoSnapshot24=null;
+function cloneState24(){try{return JSON.parse(JSON.stringify(state))}catch(e){return null}}
+function beginDemo24(){demoSnapshot24=cloneState24()}
+function restoreDemo24(){if(!demoSnapshot24)return;const keepOnline=state.online;state=JSON.parse(JSON.stringify(demoSnapshot24));if(keepOnline&&state.online)state.online=keepOnline;demoSnapshot24=null;try{localStorage.setItem('pbdSmartHub',JSON.stringify(state))}catch(e){}}
+function isAdmin24(){return !!(state.session&&String(state.session.role||'').toLowerCase()==='admin')}
 function ensureAdminLoginFix(){if(!Array.isArray(state.users))state.users=[];let a=state.users.find(x=>String(x?.username||'').trim().toLowerCase()==='admin');if(!a){a={id:'u-admin',username:'admin',password:'admin123',name:'Administrator',role:'admin',active:true,mustChangePassword:false};state.users.unshift(a)}else{a.username='admin';a.role='admin';a.active=true;a.name=a.name||'Administrator';if(typeof a.password!=='string'||!a.password)a.password='admin123'}return a}
 window.ensureAdmin24=ensureAdminLoginFix;
 window.showLogin24=function(){document.body.classList.add('v24-auth-gate');document.body.classList.remove('v24-authenticated');const app=document.querySelector('body>.app');if(app)app.style.display='none';const box=document.getElementById('login24');if(box){box.classList.remove('v24-hidden');box.style.display='flex';box.style.visibility='visible';box.style.pointerEvents='auto'}setTimeout(()=>document.getElementById('loginUser24')?.focus(),80)};
 window.hideLogin24=function(){const box=document.getElementById('login24');if(box){box.classList.add('v24-hidden');box.style.display='none';box.style.pointerEvents='none'}};
-window.setAuthView24=function(){const logged=!!(state.session&&state.session.username);document.body.classList.toggle('v24-auth-gate',!logged);document.body.classList.toggle('v24-authenticated',logged);const app=document.querySelector('body>.app');if(app)app.style.display=logged?'flex':'none';const top=document.getElementById('logoutTop24');if(top)top.style.display=logged?'inline-flex':'none';const nav=document.getElementById('usersNav24');if(nav)nav.style.display=(logged&&state.session.role==='admin')?'flex':'none'};
-window.login24=function(){const un=(document.getElementById('loginUser24')?.value||'').trim(),pw=document.getElementById('loginPass24')?.value||'',err=document.getElementById('loginError24');if(err)err.textContent='';if(!un||!pw){if(err)err.textContent='Username dan password wajib diisi.';return false}ensureAdminLoginFix();const u=(state.users||[]).find(x=>String(x?.username||'').trim().toLowerCase()===un.toLowerCase()&&String(x?.password??'')===pw&&x.active!==false);if(u&&u.username!=='admin'&&u.temporary&&u.expiresAt&&new Date(u.expiresAt).getTime()<=Date.now()){u.active=false;try{save()}catch(e){}if(err)err.textContent='Akun sementara sudah kedaluwarsa. Hubungi Admin untuk membuat akun baru.';return false}if(!u){if(err)err.textContent='Username atau password salah. Silakan hubungi Admin untuk mendapatkan akun sementara yang aktif.';return false}state.session={username:u.username,name:u.name||u.username,role:u.role||'viewer',loginAt:new Date().toISOString(),mustChangePassword:!!u.mustChangePassword};hideLogin24();setAuthView24();updateUserChip24();try{save()}catch(e){try{localStorage.setItem('pbdSmartHub',JSON.stringify(state))}catch(_){}}if(u.mustChangePassword){openChangePass24();toast('Login pertama. Anda wajib mengganti password sebelum melanjutkan.','error')}else toast('Selamat datang, '+(u.name||u.username),'success');return true};
+window.setAuthView24=function(){const logged=!!(state.session&&state.session.username);document.body.classList.toggle('v24-auth-gate',!logged);document.body.classList.toggle('v24-authenticated',logged);const app=document.querySelector('body>.app');if(app)app.style.display=logged?'flex':'none';const top=document.getElementById('logoutTop24');if(top)top.style.display=logged?'inline-flex':'none';const nav=document.getElementById('usersNav24');if(nav){const admin=logged&&String(state.session.role||'').toLowerCase()==='admin';nav.style.display=admin?'flex':'none';nav.hidden=!admin;nav.setAttribute('aria-hidden',String(!admin));}};
+window.login24=function(){const un=(document.getElementById('loginUser24')?.value||'').trim(),pw=document.getElementById('loginPass24')?.value||'',err=document.getElementById('loginError24');if(err)err.textContent='';if(!un||!pw){if(err)err.textContent='Username dan password wajib diisi.';return false}ensureAdminLoginFix();const u=(state.users||[]).find(x=>String(x.username||'').trim().toLowerCase()===un.toLowerCase()&&String(x.password??'')===pw&&x.active!==false);if(!u){if(err)err.textContent='Username atau password salah. Silakan hubungi Admin.';return false}if(u.username!=='admin'&&u.temporary&&u.expiresAt&&new Date(u.expiresAt).getTime()<=Date.now()){u.active=false;if(err)err.textContent='Akun sementara sudah kedaluwarsa. Hubungi Admin.';return false}beginDemo24();state.session={username:u.username,name:u.name||u.username,role:u.username==='admin'?'admin':(u.role||'viewer'),loginAt:new Date().toISOString(),mustChangePassword:!!u.mustChangePassword};hideLogin24();setAuthView24();updateUserChip24();if(isAdmin24()){try{save()}catch(e){}}if(u.mustChangePassword){openChangePass24();toast('Login pertama. Anda wajib mengganti password sebelum melanjutkan.','error')}else if(isAdmin24()){toast('Selamat datang, '+(u.name||u.username),'success')}else{toast('Mode pengguna: seluruh fitur dapat digunakan sebagai DEMO. Perubahan akan kembali ke kondisi awal saat logout.','info')}return true};
 window.resetAdminPassword24=function(){if(!confirm('Reset akun Admin ke username admin dan password admin123?'))return;const a=ensureAdminLoginFix();a.password='admin123';a.active=true;a.role='admin';a.mustChangePassword=false;state.session=null;try{localStorage.setItem('pbdSmartHub',JSON.stringify(state))}catch(e){}setAuthView24();showLogin24();updateUserChip24();const err=document.getElementById('loginError24');if(err)err.textContent='Admin berhasil direset. Gunakan admin / admin123.'};
-window.logout24=function(){state.session=null;try{localStorage.setItem('pbdSmartHub',JSON.stringify(state))}catch(e){}updateUserChip24();setAuthView24();showLogin24();const u=document.getElementById('loginUser24');if(u)u.value='';const pw=document.getElementById('loginPass24');if(pw)pw.value=''};
+window.logout24=function(){if(!isAdmin24())restoreDemo24();else{state.session=null;try{localStorage.setItem('pbdSmartHub',JSON.stringify(state))}catch(e){}}state.session=null;updateUserChip24();setAuthView24();showLogin24();const u=document.getElementById('loginUser24');if(u)u.value='';const pw=document.getElementById('loginPass24');if(pw)pw.value=''};
 function normalizeTemporaryUsers24(){if(!Array.isArray(state.users))state.users=[];const now=Date.now();state.users.forEach(u=>{if(u.username==='admin'){u.temporary=false;u.expiresAt=null;u.role='admin';u.active=true}else{u.temporary=true;if(!u.expiresAt)u.expiresAt=new Date(Date.now()+30*86400000).toISOString();if(new Date(u.expiresAt).getTime()<=now)u.active=false;u.role=(u.role==='viewer'?'viewer':'operator')}})}
 function bootLoginFix(){ensureAdminLoginFix();normalizeTemporaryUsers24();state.session=null;setAuthView24();showLogin24();updateUserChip24()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootLoginFix,{once:true});else setTimeout(bootLoginFix,0);
