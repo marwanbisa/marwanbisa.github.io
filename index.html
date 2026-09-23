@@ -2236,5 +2236,253 @@ function bootLoginFix(){ensureAdminLoginFix();normalizeTemporaryUsers24();state.
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootLoginFix,{once:true});else setTimeout(bootLoginFix,0);
 })();
 </script>
+
+<!-- RSPM v2.5 — ISOLASI DATA ADMIN & PENGGUNA -->
+<style id="rspmV25Isolation">
+.v25-role-badge{font-size:10px;padding:5px 9px;border-radius:999px;background:#eef6ff;color:#075b9c;font-weight:800;margin-right:5px}
+.v25-user-note{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f3f8ff;border:1px solid #d9eafa;color:#49657d;font-size:11px;line-height:1.45}
+body.dark22 .v25-user-note{background:#132235;border-color:#29415a;color:#b8c9dc}
+</style>
+<script>
+(function(){
+  const ADMIN_MASTER_KEY='rspmV25_adminMaster';
+  const USER_BACKUP_PREFIX='rspmV25_userBackup_';
+  const V25_VERSION='2.5';
+  const saveOriginal25 = save;
+
+  function deepClone25(obj){
+    try{return JSON.parse(JSON.stringify(obj));}catch(e){return obj;}
+  }
+  function readJSON25(key){
+    try{
+      const raw=localStorage.getItem(key);
+      return raw?JSON.parse(raw):null;
+    }catch(e){return null;}
+  }
+  function writeJSON25(key,obj){
+    try{localStorage.setItem(key,JSON.stringify(obj));return true;}catch(e){return false;}
+  }
+  function userKey25(username){
+    return USER_BACKUP_PREFIX + String(username||'user').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'_');
+  }
+  function isAdmin25(){
+    return !!(state.session && String(state.session.role||'').toLowerCase()==='admin');
+  }
+  function currentUsername25(){
+    return String(state.session?.username||'').trim().toLowerCase();
+  }
+  function stripSession25(obj){
+    const x=deepClone25(obj);
+    if(x) x.session=null;
+    return x;
+  }
+
+  // Ambil data utama Admin. Jika belum ada, migrasikan data v2.4 saat ini menjadi master.
+  function ensureAdminMaster25(){
+    let master=readJSON25(ADMIN_MASTER_KEY);
+    if(!master || typeof master!=='object' || Array.isArray(master)){
+      master=stripSession25(state);
+      if(master) writeJSON25(ADMIN_MASTER_KEY,master);
+    }
+    return master;
+  }
+
+  function applyState25(source){
+    if(!source || typeof source!=='object') return;
+    const session=state.session;
+    const online=state.online;
+    state=deepClone25(source);
+    state.session=session||null;
+    // konfigurasi online tetap dapat dipakai oleh Admin
+    if(online && (!state.online || typeof state.online!=='object')) state.online=online;
+    if(typeof state.meta!=='object'||!state.meta) state.meta={};
+    state.meta.version=V25_VERSION;
+    // Sinkronkan array yang dipakai renderer
+    if(Array.isArray(state.programs)){
+      programs.splice(0,programs.length,...state.programs.map(p=>({...p})));
+    }
+    if(Array.isArray(state.mapping)){
+      mapping.splice(0,mapping.length,...state.mapping.map(r=>[...r]));
+    }
+  }
+
+  function updateRoleUi25(){
+    const chip=document.getElementById('userChip24');
+    if(!chip) return;
+    const role=String(state.session?.role||'').toLowerCase();
+    const name=state.session?.name||state.session?.username||'';
+    chip.innerHTML = name ? `<span class="v25-role-badge">${role==='admin'?'ADMIN':'PENGGUNA'}</span>${name}` : 'Belum login';
+  }
+
+  // Simpan Admin ke master. Data pengguna sengaja tidak pernah menimpa master.
+  save = function(){
+    const beforeSession=state.session;
+    saveOriginal25();
+    if(isAdmin25()){
+      const master=stripSession25(state);
+      if(master){
+        master.meta=master.meta||{};
+        master.meta.version=V25_VERSION;
+        master.meta.updatedAt=new Date().toISOString();
+        writeJSON25(ADMIN_MASTER_KEY,master);
+      }
+    }
+    updateRoleUi25();
+  };
+
+  function loginAdmin25(u){
+    const master=ensureAdminMaster25();
+    applyState25(master);
+    state.session={
+      username:u.username,name:u.name||u.username,role:'admin',
+      loginAt:new Date().toISOString(),mustChangePassword:!!u.mustChangePassword
+    };
+    // simpan sesi, bukan data master
+    writeJSON25('pbdSmartHub',stripSession25(state));
+    hideLogin24();setAuthView24();updateUserChip24();updateRoleUi25();
+    try{renderAll?.()}catch(e){}
+    if(u.mustChangePassword){
+      openChangePass24();
+      toast('Login pertama Admin. Silakan ganti password.','error');
+    }else{
+      toast('Selamat datang, '+(u.name||u.username)+'. Data Admin aktif.','success');
+    }
+  }
+
+  function loginUser25(u){
+    // Selalu mulai dari DEFAULT TERBARU milik Admin.
+    const master=ensureAdminMaster25();
+    applyState25(master);
+    state.session={
+      username:u.username,name:u.name||u.username,role:u.role||'viewer',
+      loginAt:new Date().toISOString(),mustChangePassword:!!u.mustChangePassword
+    };
+    // Data pengguna tidak ditulis ke master.
+    hideLogin24();setAuthView24();updateUserChip24();updateRoleUi25();
+    toast('Mode Pengguna: dimulai dari default Admin. Perubahan Anda hanya berlaku selama sesi ini dan tidak mengubah Admin.','info');
+    if(u.mustChangePassword) openChangePass24();
+  }
+
+  window.login24=function(){
+    const un=(document.getElementById('loginUser24')?.value||'').trim();
+    const pw=document.getElementById('loginPass24')?.value||'';
+    const err=document.getElementById('loginError24');
+    if(err)err.textContent='';
+    if(!un||!pw){if(err)err.textContent='Username dan password wajib diisi.';return false;}
+
+    // v2.5.1: kredensial selalu dibaca dari MASTER ADMIN terbaru.
+    // Ini mencegah login gagal karena state lokal pengguna masih membawa data lama.
+    let master=ensureAdminMaster25();
+    if(!master || typeof master!=='object'){
+      if(err)err.textContent='Data akun belum tersedia. Silakan muat ulang aplikasi.';
+      return false;
+    }
+    if(!Array.isArray(master.users)) master.users=[];
+
+    // Pastikan akun Admin selalu tersedia untuk pemulihan.
+    let admin=master.users.find(x=>String(x?.username||'').trim().toLowerCase()==='admin');
+    if(!admin){
+      admin={id:'u-admin',username:'admin',password:'admin123',name:'Administrator',role:'admin',active:true,mustChangePassword:false};
+      master.users.unshift(admin);
+      writeJSON25(ADMIN_MASTER_KEY,master);
+    }else{
+      admin.username='admin';admin.role='admin';admin.active=true;admin.name=admin.name||'Administrator';
+      if(typeof admin.password!=='string'||!admin.password)admin.password='admin123';
+    }
+
+    let u=master.users.find(x=>String(x?.username||'').trim().toLowerCase()===un.toLowerCase());
+    if(!u){
+      // Fallback migrasi: bila akun dibuat pada data lokal sebelum master terbentuk,
+      // masukkan akun tersebut ke master sekali saja.
+      const localUsers=Array.isArray(state.users)?state.users:[];
+      const localU=localUsers.find(x=>String(x?.username||'').trim().toLowerCase()===un.toLowerCase());
+      if(localU && localU.username && String(localU.username).toLowerCase()!=='admin'){
+        u=deepClone25(localU); master.users.push(u); writeJSON25(ADMIN_MASTER_KEY,master);
+      }
+    }
+
+    if(!u || String(u.password??'')!==pw || u.active===false){
+      if(err)err.textContent='Username atau password salah. Untuk Admin gunakan admin / admin123. Untuk Pengguna gunakan akun sementara yang dibuat Admin.';
+      return false;
+    }
+    if(String(u.username||'').toLowerCase()!=='admin'&&u.temporary&&u.expiresAt&&new Date(u.expiresAt).getTime()<=Date.now()){
+      u.active=false;writeJSON25(ADMIN_MASTER_KEY,master);
+      if(err)err.textContent='Akun sementara sudah kedaluwarsa. Hubungi Admin.';
+      return false;
+    }
+
+    // Terapkan master sebelum membuat sesi agar seluruh aplikasi memakai data yang sama.
+    applyState25(master);
+    state.users=deepClone25(master.users||[]);
+    if(String(u.username||'').toLowerCase()==='admin') loginAdmin25(u);
+    else loginUser25(u);
+    return true;
+  };
+  window.logout24=function(){
+    const wasAdmin=isAdmin25();
+    if(wasAdmin){
+      // Pastikan perubahan terakhir Admin masuk ke master.
+      const master=stripSession25(state);
+      if(master) writeJSON25(ADMIN_MASTER_KEY,master);
+      writeJSON25('pbdSmartHub',master);
+    }
+    // Pengguna: buang seluruh perubahan sesi dan jangan sentuh master Admin.
+    state.session=null;
+    const master=ensureAdminMaster25();
+    applyState25(master);
+    state.session=null;
+    writeJSON25('pbdSmartHub',stripSession25(state));
+    updateUserChip24();updateRoleUi25();setAuthView24();showLogin24();
+    const u=document.getElementById('loginUser24');if(u)u.value='';
+    const pw=document.getElementById('loginPass24');if(pw)pw.value='';
+    toast(wasAdmin?'Data Admin tersimpan permanen.':'Perubahan Pengguna direset; aplikasi kembali ke default Admin.','success');
+  };
+
+  // Setelah Admin mengedit dan menyimpan, default pengguna langsung mengikuti versi terbaru.
+  window.publishAdminDefault25=function(){
+    if(!isAdmin25()){toast('Hanya Admin yang dapat memperbarui default pengguna.','error');return;}
+    const master=stripSession25(state);
+    master.meta=master.meta||{};
+    master.meta.version=V25_VERSION;
+    master.meta.updatedAt=new Date().toISOString();
+    if(writeJSON25(ADMIN_MASTER_KEY,master))
+      toast('Default Pengguna berhasil diperbarui dari data Admin.','success');
+    else toast('Gagal menyimpan default Admin.','error');
+  };
+
+  // Tambahkan tombol informasi pada topbar.
+  function addV25Ui(){
+    const actions=document.querySelector('.topbar .actions');
+    if(!actions || document.getElementById('v25PublishBtn')) return;
+    const b=document.createElement('button');
+    b.id='v25PublishBtn';b.className='btn green sm';b.textContent='📌 Jadikan Default Pengguna';
+    b.onclick=window.publishAdminDefault25;
+    b.style.display=isAdmin25()?'inline-flex':'none';
+    actions.insertBefore(b,actions.querySelector('#logoutTop24')||actions.firstChild);
+  }
+  function refreshV25Ui(){
+    updateRoleUi25();
+    const b=document.getElementById('v25PublishBtn');
+    if(b)b.style.display=isAdmin25()?'inline-flex':'none';
+  }
+
+  // Pastikan setiap pemanggilan setAuthView memperbarui UI v2.5.
+  const setAuthBase25=window.setAuthView24;
+  window.setAuthView24=function(){
+    setAuthBase25();
+    refreshV25Ui();
+  };
+
+  // Saat halaman selesai dimuat: siapkan master Admin tanpa mengubahnya.
+  function boot25(){
+    ensureAdminMaster25();
+    addV25Ui();
+    refreshV25Ui();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot25,{once:true});
+  else setTimeout(boot25,30);
+})();
+</script>
+
 </body>
 </html>
