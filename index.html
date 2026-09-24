@@ -525,8 +525,8 @@ body.dark22 .presentation-upload-panel,body.dark22 .presentation-gallery-panel{b
  <h3 style="margin:0 0 8px;color:var(--navy)">📷 Dokumentasi Memetakan</h3>
  <label style="display:block;font-weight:700;margin:8px 0 5px">Isi/kegiatan yang akan diberi gambar</label>
  <input type="text" id="stageNote_pemetaan" class="search" placeholder="Tuliskan isi/kegiatan yang akan didokumentasikan..." style="width:100%;max-width:100%;margin-bottom:8px">
- <label class="btn primary sm" for="stageFiles_pemetaan" style="display:inline-flex;cursor:pointer">＋ Unggah Gambar</label>
- <input type="file" id="stageFiles_pemetaan" accept="image/*" multiple style="display:none" onchange="uploadStageImages('pemetaan',this.files)">
+ <button type="button" class="btn primary sm" onclick="document.getElementById('stageFiles_pemetaan').click()">＋ Unggah Gambar</button>
+ <input type="file" id="stageFiles_pemetaan" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none" onchange="uploadStageImages('pemetaan',this.files)">
  <div class="muted" style="margin-top:7px">Unggah gambar untuk isi/kegiatan ini. Gambar akan tampil di galeri tahap ini; ketuk gambar untuk memperbesar.</div>
  <div id="stageGallery_pemetaan" class="stage-evidence-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px"></div>
 </div>
@@ -538,8 +538,8 @@ body.dark22 .presentation-upload-panel,body.dark22 .presentation-gallery-panel{b
  <h3 style="margin:0 0 8px;color:var(--navy)">📷 Dokumentasi Merencanakan</h3>
  <label style="display:block;font-weight:700;margin:8px 0 5px">Isi/kegiatan yang akan diberi gambar</label>
  <input type="text" id="stageNote_rencana" class="search" placeholder="Tuliskan isi/kegiatan yang akan didokumentasikan..." style="width:100%;max-width:100%;margin-bottom:8px">
- <label class="btn primary sm" for="stageFiles_rencana" style="display:inline-flex;cursor:pointer">＋ Unggah Gambar</label>
- <input type="file" id="stageFiles_rencana" accept="image/*" multiple style="display:none" onchange="uploadStageImages('rencana',this.files)">
+ <button type="button" class="btn primary sm" onclick="document.getElementById('stageFiles_rencana').click()">＋ Unggah Gambar</button>
+ <input type="file" id="stageFiles_rencana" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none" onchange="uploadStageImages('rencana',this.files)">
  <div class="muted" style="margin-top:7px">Unggah gambar untuk isi/kegiatan ini. Gambar akan tampil di galeri tahap ini; ketuk gambar untuk memperbesar.</div>
  <div id="stageGallery_rencana" class="stage-evidence-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px"></div>
 </div>
@@ -551,8 +551,8 @@ body.dark22 .presentation-upload-panel,body.dark22 .presentation-gallery-panel{b
  <h3 style="margin:0 0 8px;color:var(--navy)">📷 Dokumentasi Melaksanakan</h3>
  <label style="display:block;font-weight:700;margin:8px 0 5px">Isi/kegiatan yang akan diberi gambar</label>
  <input type="text" id="stageNote_laksana" class="search" placeholder="Tuliskan isi/kegiatan yang akan didokumentasikan..." style="width:100%;max-width:100%;margin-bottom:8px">
- <label class="btn primary sm" for="stageFiles_laksana" style="display:inline-flex;cursor:pointer">＋ Unggah Gambar</label>
- <input type="file" id="stageFiles_laksana" accept="image/*" multiple style="display:none" onchange="uploadStageImages('laksana',this.files)">
+ <button type="button" class="btn primary sm" onclick="document.getElementById('stageFiles_laksana').click()">＋ Unggah Gambar</button>
+ <input type="file" id="stageFiles_laksana" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none" onchange="uploadStageImages('laksana',this.files)">
  <div class="muted" style="margin-top:7px">Unggah gambar untuk isi/kegiatan ini. Gambar akan tampil di galeri tahap ini; ketuk gambar untuk memperbesar.</div>
  <div id="stageGallery_laksana" class="stage-evidence-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px"></div>
 </div>
@@ -634,8 +634,8 @@ body.dark22 .presentation-upload-panel,body.dark22 .presentation-gallery-panel{b
  <h3 style="margin:0 0 8px;color:var(--navy)">📷 Dokumentasi Mengevaluasi</h3>
  <label style="display:block;font-weight:700;margin:8px 0 5px">Isi/kegiatan yang akan diberi gambar</label>
  <input type="text" id="stageNote_evaluasi" class="search" placeholder="Tuliskan isi/kegiatan yang akan didokumentasikan..." style="width:100%;max-width:100%;margin-bottom:8px">
- <label class="btn primary sm" for="stageFiles_evaluasi" style="display:inline-flex;cursor:pointer">＋ Unggah Gambar</label>
- <input type="file" id="stageFiles_evaluasi" accept="image/*" multiple style="display:none" onchange="uploadStageImages('evaluasi',this.files)">
+ <button type="button" class="btn primary sm" onclick="document.getElementById('stageFiles_evaluasi').click()">＋ Unggah Gambar</button>
+ <input type="file" id="stageFiles_evaluasi" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none" onchange="uploadStageImages('evaluasi',this.files)">
  <div class="muted" style="margin-top:7px">Unggah gambar untuk isi/kegiatan ini. Gambar akan tampil di galeri tahap ini; ketuk gambar untuk memperbesar.</div>
  <div id="stageGallery_evaluasi" class="stage-evidence-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px"></div>
 </div>
@@ -650,8 +650,8 @@ body.dark22 .presentation-upload-panel,body.dark22 .presentation-gallery-panel{b
  <h3 style="margin:0 0 8px;color:var(--navy)">📷 Dokumentasi Mengendalikan</h3>
  <label style="display:block;font-weight:700;margin:8px 0 5px">Isi/kegiatan yang akan diberi gambar</label>
  <input type="text" id="stageNote_kendali" class="search" placeholder="Tuliskan isi/kegiatan yang akan didokumentasikan..." style="width:100%;max-width:100%;margin-bottom:8px">
- <label class="btn primary sm" for="stageFiles_kendali" style="display:inline-flex;cursor:pointer">＋ Unggah Gambar</label>
- <input type="file" id="stageFiles_kendali" accept="image/*" multiple style="display:none" onchange="uploadStageImages('kendali',this.files)">
+ <button type="button" class="btn primary sm" onclick="document.getElementById('stageFiles_kendali').click()">＋ Unggah Gambar</button>
+ <input type="file" id="stageFiles_kendali" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none" onchange="uploadStageImages('kendali',this.files)">
  <div class="muted" style="margin-top:7px">Unggah gambar untuk isi/kegiatan ini. Gambar akan tampil di galeri tahap ini; ketuk gambar untuk memperbesar.</div>
  <div id="stageGallery_kendali" class="stage-evidence-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px"></div>
 </div>
@@ -2636,6 +2636,7 @@ function openStageImage(stage,index){
 }
 function deleteStageImage(stage,index){if(!confirm('Hapus gambar dokumentasi ini?'))return;state.stageEvidence[stage].splice(index,1);save();renderStageEvidence(stage);}
 ['pemetaan','rencana','laksana','evaluasi','kendali'].forEach(renderStageEvidence);
+window.uploadStageImages=uploadStageImages; window.renderStageEvidence=renderStageEvidence; window.openStageImage=openStageImage; window.deleteStageImage=deleteStageImage;
 
 // Galeri Presentasi: gunakan IndexedDB (bukan localStorage) agar berkas besar tidak menyebabkan tombol unggah gagal.
 const WELCOME_DB='rspm_presentasi_db_v2', WELCOME_STORE='media';
