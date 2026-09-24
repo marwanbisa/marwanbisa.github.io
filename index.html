@@ -2592,25 +2592,38 @@ body.dark22 .v25-user-note{background:#132235;border-color:#29415a;color:#b8c9dc
   else setTimeout(boot25,30);
 })();
 
-// Dokumentasi gambar terpisah untuk masing-masing tahap PBD
+// Dokumentasi gambar tiap tahap PBD — kompresi gambar agar penyimpanan browser tidak cepat penuh.
 if(!state.stageEvidence || typeof state.stageEvidence!=='object') state.stageEvidence={pemetaan:[],rencana:[],laksana:[],evaluasi:[],kendali:[]};
 ['pemetaan','rencana','laksana','evaluasi','kendali'].forEach(k=>{if(!Array.isArray(state.stageEvidence[k]))state.stageEvidence[k]=[];});
-function uploadStageImages(stage,files){
- if(!files||!files.length)return;
- const note=(document.getElementById('stageNote_'+stage)?.value||'').trim()||'Dokumentasi '+stage;
- [...files].forEach(file=>{
-  if(!file.type.startsWith('image/')){toast('File harus berupa gambar.','error');return;}
-  const reader=new FileReader();reader.onload=function(e){
-   state.stageEvidence[stage].push({id:'ev'+Date.now()+Math.random().toString(16).slice(2),title:note,image:e.target.result,createdAt:new Date().toISOString()});
-   save();renderStageEvidence(stage);toast('Gambar dokumentasi berhasil diunggah.','success');
-  };reader.readAsDataURL(file);
+function stageImageToDataURL(file,maxSide=1440,quality=.72){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();reader.onerror=()=>reject(new Error('File gambar tidak dapat dibaca.'));
+  reader.onload=()=>{const img=new Image();img.onerror=()=>reject(new Error('Format gambar tidak dapat dibuka.'));
+   img.onload=()=>{try{const scale=Math.min(1,maxSide/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',quality));}catch(e){reject(e);}};img.src=reader.result;};reader.readAsDataURL(file);
  });
- const input=document.getElementById('stageFiles_'+stage);if(input)input.value='';
+}
+async function uploadStageImages(stage,files){
+ if(!files||!files.length)return;
+ if(!state.stageEvidence[stage])state.stageEvidence[stage]=[];
+ const note=(document.getElementById('stageNote_'+stage)?.value||'').trim()||'Dokumentasi '+stage;
+ const input=document.getElementById('stageFiles_'+stage);const chosen=Array.from(files);
+ let success=0;const errors=[];
+ for(const file of chosen){
+  if(!file.type.startsWith('image/')){errors.push(file.name+': bukan file gambar');continue;}
+  try{
+   const data=await stageImageToDataURL(file);
+   state.stageEvidence[stage].push({id:'ev'+Date.now()+Math.random().toString(16).slice(2),title:note,image:data,createdAt:new Date().toISOString(),originalName:file.name});
+   save();success++;
+  }catch(err){errors.push(file.name+': '+(err.message||'gagal diproses'));}
+ }
+ if(input)input.value='';renderStageEvidence(stage);
+ if(success)toast(success+' gambar berhasil ditambahkan (ukuran dioptimalkan).','success');
+ if(errors.length)alert('Sebagian gambar tidak berhasil diproses:\n'+errors.join('\n')+'\nJika penyimpanan browser penuh, hapus dokumentasi lama atau unggah gambar lebih kecil.');
 }
 function renderStageEvidence(stage){
  const root=document.getElementById('stageGallery_'+stage);if(!root)return;
  const rows=state.stageEvidence?.[stage]||[];
- root.innerHTML=rows.map((x,i)=>`<div style="border:1px solid #d7e2ef;border-radius:10px;padding:7px;background:#fff;min-width:0"><img src="${x.image}" alt="${String(x.title||'Dokumentasi').replace(/"/g,'&quot;')}" onclick="openStageImage('${stage}',${i})" style="width:100%;height:105px;object-fit:cover;border-radius:7px;cursor:zoom-in"><div style="font-size:12px;font-weight:700;margin:6px 0;overflow-wrap:anywhere">${esc(x.title||'Dokumentasi')}</div><button class="btn light sm" onclick="deleteStageImage('${stage}',${i})">🗑 Hapus</button></div>`).join('');
+ root.innerHTML=rows.map((x,i)=>`<div style="border:1px solid #d7e2ef;border-radius:10px;padding:7px;background:#fff;min-width:0"><img src="${x.image}" alt="${String(x.title||'Dokumentasi').replace(/"/g,'&quot;')}" onclick="openStageImage('${stage}',${i})" style="width:100%;height:105px;object-fit:cover;border-radius:7px;cursor:zoom-in"><div style="font-size:12px;font-weight:700;margin:6px 0;overflow-wrap:anywhere">${esc(x.title||'Dokumentasi')}</div><button class="btn light sm" onclick="openStageImage('${stage}',${i})">🔍 Perbesar</button> <button class="btn light sm" onclick="deleteStageImage('${stage}',${i})">🗑 Hapus</button></div>`).join('');
 }
 function openStageImage(stage,index){
  const x=state.stageEvidence?.[stage]?.[index];if(!x)return;
@@ -2620,7 +2633,7 @@ function openStageImage(stage,index){
  viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.remove();});document.body.appendChild(viewer);
  }
  const img=document.getElementById('stageFullscreenImage');img.src=x.image;img.alt=x.title||'Gambar dokumentasi';
-} 
+}
 function deleteStageImage(stage,index){if(!confirm('Hapus gambar dokumentasi ini?'))return;state.stageEvidence[stage].splice(index,1);save();renderStageEvidence(stage);}
 ['pemetaan','rencana','laksana','evaluasi','kendali'].forEach(renderStageEvidence);
 
